@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cool_grey_11"
+    android:orientation="vertical"
     tools:context=".LoginActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/action_bar" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_account" />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="75dp"
+        android:backgroundTint="@color/dark_white_2"
+        android:hint="Masukkan Username..."
+        android:inputType="text"
+        android:maxLength="12"
+        android:maxLines="1"
+        android:textColor="@color/dark_white_2"
+        android:textColorHint="@color/dark_white_2" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/dark_white_2"
+        android:hint="Masukkan Password..."
+        android:inputType="textPassword"
+        android:maxLength="12"
+        android:maxLines="1"
+        android:textColor="@color/dark_white_2"
+        android:textColorHint="@color/dark_white_2" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btn_primary"
+        android:gravity="center"
+        android:text="Login"
+        android:textColor="@color/dark_white_1" />
+
+</LinearLayout>

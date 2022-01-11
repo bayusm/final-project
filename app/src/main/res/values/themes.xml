@@ -1,16 +1,93 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.FinalProject" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.FinalProject" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/baltic_sea</item>
+        <item name="colorPrimary">@color/dark_white_2</item>
+        <item name="colorPrimaryVariant">@color/dark_white_2</item>
+        <item name="colorOnPrimary">@color/dark_white_2</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/purple_200</item>
-        <item name="colorSecondaryVariant">@color/purple_500</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/dark_white_2</item>
+        <item name="colorSecondaryVariant">@color/dark_white_2</item>
+        <item name="colorOnSecondary">@color/dark_white_2</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/black_2</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/cool_grey_11</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--Text Editor-->
+    <style name="TE_Tab_Button" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/cool_grey_9</item>
+        <item name="android:textColor">@color/cool_grey_3</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="tint">@color/cool_grey_3</item>
+    </style>
+
+    <!--  Font  -->
+    <style name="TE_Tool_Image_Button.Font_Bold" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_font_bold</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.Font_Italic" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_font_italic</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.Font_Underline" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_font_underline</item>
+    </style>
+
+    <!--  Paragraph  -->
+    <style name="TE_Tool_Image_Button.Align_Center" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_align_center</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.Align_Left" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_align_left</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.Align_Right" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_align_right</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.Indent" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_indent</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.Outdent" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_outdent</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.List_Bullet" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_list_bullet</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.List_Number" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_list_number</item>
+    </style>
+
+    <!--  Insert  -->
+    <style name="TE_Tool_Image_Button.Insert_File" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_insert_file</item>
+    </style>
+
+    <style name="TE_Tool_Image_Button.Insert_Image" parent="TE_Tool_Image_Button">
+        <item name="android:src">@drawable/ic_tool_insert_image</item>
+    </style>
+
+    <!--  Other  -->
+    <style name="TE_Tool_Custom_Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/btn_primary</item>
+        <item name="android:textColor">@color/dark_white_2</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
 </resources>

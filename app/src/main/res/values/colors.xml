@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--Default-->
+    <!--Default-->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -9,15 +9,33 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-<!--Custom-->
+    <!--Custom-->
     <color name="transparent">#00000000</color>
-    <color name="shadowed_steel">#4b4b4b</color>
-    <color name="baltic_sea">#3d3d3d</color>
-    <color name="black_1">#191919</color>
-    <color name="black_2">#232323</color>
-    <color name="black_3">#303030</color>
-    <color name="white_1">#ecf0f1</color>
-    <color name="white_2">#bdc3c7</color>
-    <color name="white_3">#A1A7AA</color>
-    <color name="white_4">#828688</color>
+    <color name="emerald">#2ecc71</color>
+    <color name="turquoise">#1abc9c</color>
+    <color name="alizarin">#e74c3c</color>
+    <color name="carrot">#e67e22</color>
+    <color name="pumpkin">#d35400</color>
+    <color name="amethyst">#9b59b6</color>
+    <color name="amethyst_disable">#659B59B6</color>
+    <color name="wisteria">#8e44ad</color>
+
+    <color name="cool_grey_1">#F5F7FA</color>
+    <color name="cool_grey_2">#E4E7EB</color>
+    <color name="cool_grey_3">#CBD2D9</color>
+    <color name="cool_grey_4">#9AA5B1</color>
+    <color name="cool_grey_5">#7B8794</color>
+    <color name="cool_grey_6">#616E7C</color>
+    <color name="cool_grey_7">#52606D</color>
+    <color name="cool_grey_8">#3E4C59</color>
+    <color name="cool_grey_9">#323F4B</color>
+    <color name="cool_grey_10">#1F2933</color>
+    <color name="cool_grey_10_1">#1A222B</color>
+    <color name="cool_grey_11">#1d2025</color>
+
+    <color name="dark_white_1">#e5e5e5</color>
+    <color name="dark_white_2">#888888</color>
+    <color name="dark_black_1">#383838</color>
+    <color name="dark_black_2">#2d2d2d</color>
+    <color name="dark_black_3">#222222</color>
 </resources>

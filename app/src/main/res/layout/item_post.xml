@@ -1,121 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="5dp"
-    android:background="@color/black_2"
+    android:layout_marginHorizontal="14dp"
+    android:layout_marginVertical="7dp"
+    android:background="@drawable/shape_rounded_rect"
+    android:backgroundTint="@color/cool_grey_10"
     android:orientation="vertical"
     android:padding="10dp">
 
-    <LinearLayout
-        android:id="@+id/ll_tags"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            android:id="@+id/layout_category_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/tv_username_publisher"
+            android:columnCount="4"
+            android:orientation="horizontal"
+            android:rowCount="2">
+
+            <TextView
+                android:id="@+id/tv_main_category_tag"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rounded_rect"
+                android:backgroundTint="@color/alizarin"
+                android:fontFamily="@font/prompt"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/dark_white_1"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_sub_category_tag_1"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rounded_rect"
+                android:backgroundTint="@color/carrot"
+                android:fontFamily="@font/prompt"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/dark_white_1"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_sub_category_tag_2"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rounded_rect"
+                android:backgroundTint="@color/carrot"
+                android:fontFamily="@font/prompt"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/dark_white_1"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_sub_category_tag_3"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rounded_rect"
+                android:backgroundTint="@color/carrot"
+                android:fontFamily="@font/prompt"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/dark_white_1"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_sub_category_tag_4"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rounded_rect"
+                android:backgroundTint="@color/carrot"
+                android:fontFamily="@font/prompt"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/dark_white_1"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_sub_category_tag_5"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rounded_rect"
+                android:backgroundTint="@color/carrot"
+                android:fontFamily="@font/prompt"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/dark_white_1"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_sub_category_tag_6"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rounded_rect"
+                android:backgroundTint="@color/carrot"
+                android:fontFamily="@font/prompt"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/dark_white_1"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_sub_category_tag_7"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/shape_rounded_rect"
+                android:backgroundTint="@color/carrot"
+                android:fontFamily="@font/prompt"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/dark_white_1"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+        </GridLayout>
 
         <TextView
+            android:id="@+id/tv_username_publisher"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/rounded_rect"
-            android:backgroundTint="@color/purple_500"
-            android:padding="8dp"
-            android:text="Test"
-            android:textColor="@color/white_2"
-            android:textSize="11sp" />
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/prompt"
+            android:gravity="center_vertical"
+            android:textColor="@color/dark_white_1"
+            android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/rounded_rect"
-            android:backgroundTint="@color/purple_500"
-            android:padding="8dp"
-            android:text="Test"
-            android:textColor="@color/white_2"
-            android:textSize="11sp" />
+    </RelativeLayout>
 
-    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_post_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="8dp"
-        android:text="Judul"
-        android:textColor="@color/white_2"
+        android:fontFamily="@font/prompt"
+        android:textColor="@color/dark_white_1"
         android:textSize="20sp"
         android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tv_post_isi"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:text="asdwqdqwdsvhdbwajvjsdvbewvwevbwebuevasdqwdqwdqwd wqdwqdyuw wqdbwqdyb wqdbybqwdb wqdqwd wqdibyqwdwevew"
-        android:textColor="@color/white_3"
-        android:textSize="14sp" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="8dp"
-        android:src="@color/white_4" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginTop="8dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="Baru Saja"
-            android:textColor="@color/white_3"
-            android:textSize="10sp" />
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginHorizontal="2dp"
-                android:src="@drawable/ic_baseline_star_24" />
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_like"
+                app:tint="@color/dark_white_2" />
 
             <TextView
+                android:id="@+id/tv_post_like_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="2dp"
-                android:text="2"
-                android:textColor="@color/white_3"
-                android:textSize="10sp" />
+                android:layout_marginHorizontal="6dp"
+                android:fontFamily="@font/prompt"
+                android:textColor="@color/dark_white_1"
+                android:textSize="11sp" />
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginHorizontal="2dp"
-                android:src="@drawable/ic_baseline_comment_24" />
+                android:layout_marginHorizontal="6dp"
+                android:src="@drawable/ic_comment"
+                app:tint="@color/dark_white_2" />
 
             <TextView
+                android:id="@+id/tv_post_comment_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="2dp"
-                android:text="6"
-                android:textColor="@color/white_3"
-                android:textSize="10sp" />
+                android:layout_marginHorizontal="6dp"
+                android:fontFamily="@font/prompt"
+                android:textColor="@color/dark_white_1"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_created_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/prompt"
+            android:textColor="@color/dark_white_2"
+            android:textSize="11sp" />
 
     </RelativeLayout>
 
