@@ -27,6 +27,7 @@ WEMUSIC
 - maksimal 10 post yang ditampilkan
 - tombol panah untuk melihat post selanjutnya/ sebelumnya
 - jika post diklik akan menampilkan isi kontennya
+- fitur komentar dan like belum jadi
 
 4. Halaman Buat Post
 
