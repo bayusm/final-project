@@ -15,12 +15,12 @@ import com.example.finalproject.api.requestbuilder.GetSubCategoryRequestBuilder;
 import com.example.finalproject.api.requestbuilder.PostUploadRequestBuilder;
 import com.example.finalproject.api.requestbuilder.UserLoginRequestBuilder;
 import com.example.finalproject.api.requestbuilder.UserRegisterRequestBuilder;
-import com.example.finalproject.database.cloud.response.model.DummyCM;
-import com.example.finalproject.database.cloud.response.model.PostDetailCM;
-import com.example.finalproject.database.cloud.response.model.PostPageCM;
-import com.example.finalproject.database.cloud.response.model.SubCategoryListCM;
-import com.example.finalproject.database.cloud.response.model.UserLoginCM;
-import com.example.finalproject.database.cloud.response.model.BaseResponseCM;
+import com.example.finalproject.database.cloud.response.model.EmptyModel;
+import com.example.finalproject.database.cloud.response.model.PostDetailModel;
+import com.example.finalproject.database.cloud.response.model.PostPageModel;
+import com.example.finalproject.database.cloud.response.model.SubCategoryListModel;
+import com.example.finalproject.database.cloud.response.model.UserLoginModel;
+import com.example.finalproject.database.cloud.response.model.BaseResponseModel;
 import com.example.finalproject.helper.validatetor.ValidateTor;
 import com.example.finalproject.post.data.Post;
 import com.example.finalproject.post.data.PostFile;
@@ -44,75 +44,75 @@ public class ApiManager {
     public <T> void applyApiResponse(ApiRequestBuilder apiRequestBuilder, FinishRequestAction<T> finishRequestAction, Type type) {
 
         apiRequestBuilder.setResponseAction(response -> {
-            BaseResponseCM<T> baseResponseCM = new BaseResponseCM<T>();
+            BaseResponseModel<T> baseResponseModel = new BaseResponseModel<T>();
             String json = null;
 
             try {
                 json = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
                 Gson gson = new Gson();
-                baseResponseCM = gson.fromJson(json, type);
+                baseResponseModel = gson.fromJson(json, type);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                baseResponseCM.success = false;
-                baseResponseCM.message = "Error parsing!";
+                baseResponseModel.success = false;
+                baseResponseModel.message = "Error parsing!";
             }
 
-            finishRequestAction.onResponse(baseResponseCM);
+            finishRequestAction.onResponse(baseResponseModel);
         });
         apiRequestBuilder.setResponseErrorAction(error -> {
-            BaseResponseCM<T> baseResponseCM = new BaseResponseCM<T>();
+            BaseResponseModel<T> baseResponseModel = new BaseResponseModel<T>();
             String json = null;
             try {
                 json = new String(error.networkResponse.data, HttpHeaderParser.parseCharset(error.networkResponse.headers));
                 ValidateTor validateTor = new ValidateTor();
                 if (validateTor.isJSON(json)) {
                     Gson gson = new Gson();
-                    baseResponseCM = gson.fromJson(json, type);
-                    if (baseResponseCM.message == null) {
-                        baseResponseCM.success = false;
-                        baseResponseCM.message = "Error! status code " + error.networkResponse.statusCode;
-                    } else if (baseResponseCM.message.equals("Unauthenticated.")) {
+                    baseResponseModel = gson.fromJson(json, type);
+                    if (baseResponseModel.message == null) {
+                        baseResponseModel.success = false;
+                        baseResponseModel.message = "Error! status code " + error.networkResponse.statusCode;
+                    } else if (baseResponseModel.message.equals("Unauthenticated.")) {
                         //
                     }
                 } else {
-                    baseResponseCM.success = false;
-                    baseResponseCM.message = "Error! status code " + error.networkResponse.statusCode;
+                    baseResponseModel.success = false;
+                    baseResponseModel.message = "Error! status code " + error.networkResponse.statusCode;
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                baseResponseCM.success = false;
-                baseResponseCM.message = "Error parsing!";
+                baseResponseModel.success = false;
+                baseResponseModel.message = "Error parsing!";
             }
 
-            finishRequestAction.onResponse(baseResponseCM);
+            finishRequestAction.onResponse(baseResponseModel);
         });
 
         queue.add(apiRequestBuilder.build());
     }
 
-    public void getSubCategories(@NonNull FinishRequestAction<SubCategoryListCM> finishRequestAction, @NonNull Integer id) {
+    public void getSubCategories(@NonNull FinishRequestAction<SubCategoryListModel> finishRequestAction, @NonNull Integer id) {
         GetSubCategoryRequestBuilder getSubCategoryRequestBuilder = new GetSubCategoryRequestBuilder(id);
-        Type type = new TypeToken<BaseResponseCM<SubCategoryListCM>>() {
+        Type type = new TypeToken<BaseResponseModel<SubCategoryListModel>>() {
         }.getType();
         applyApiResponse(getSubCategoryRequestBuilder, finishRequestAction, type);
     }
 
-    public void userRegister(@NonNull FinishRequestAction<DummyCM> finishRequestAction, @NonNull String username, @NonNull String password, @NonNull String email) {
+    public void userRegister(@NonNull FinishRequestAction<EmptyModel> finishRequestAction, @NonNull String username, @NonNull String password, @NonNull String email) {
         UserRegisterRequestBuilder userRegisterRequestBuilder = new UserRegisterRequestBuilder(username, password, email);
-        Type type = new TypeToken<BaseResponseCM<DummyCM>>() {
+        Type type = new TypeToken<BaseResponseModel<EmptyModel>>() {
         }.getType();
         applyApiResponse(userRegisterRequestBuilder, finishRequestAction, type);
     }
 
-    public void userLogin(@NonNull FinishRequestAction<UserLoginCM> finishRequestAction, @NonNull String username, @NonNull String password) {
+    public void userLogin(@NonNull FinishRequestAction<UserLoginModel> finishRequestAction, @NonNull String username, @NonNull String password) {
         UserLoginRequestBuilder userLoginRequestBuilder = new
                 UserLoginRequestBuilder(username, password);
-        Type type = new TypeToken<BaseResponseCM<UserLoginCM>>() {
+        Type type = new TypeToken<BaseResponseModel<UserLoginModel>>() {
         }.getType();
         applyApiResponse(userLoginRequestBuilder, finishRequestAction, type);
     }
 
-    public void getPostPage(@NonNull FinishRequestAction<PostPageCM> finishRequestAction, @Nullable String cursor, @Nullable List<GetPostPageRequestBuilder.CategoryParam> categories, @Nullable String search) {
+    public void getPostPage(@NonNull FinishRequestAction<PostPageModel> finishRequestAction, @Nullable String cursor, @Nullable List<GetPostPageRequestBuilder.CategoryParam> categories, @Nullable String search) {
         GetPostPageRequestBuilder getPostPageRequestBuilder = new GetPostPageRequestBuilder();
         if (cursor != null) {
             getPostPageRequestBuilder.setCursor(cursor);
@@ -123,19 +123,19 @@ public class ApiManager {
         if (search != null) {
             getPostPageRequestBuilder.setSearch(search);
         }
-        Type type = new TypeToken<BaseResponseCM<PostPageCM>>() {
+        Type type = new TypeToken<BaseResponseModel<PostPageModel>>() {
         }.getType();
         applyApiResponse(getPostPageRequestBuilder, finishRequestAction, type);
     }
 
-    public void getPostDetail(@NonNull FinishRequestAction<PostDetailCM> finishRequestAction, @NonNull Integer postId) {
+    public void getPostDetail(@NonNull FinishRequestAction<PostDetailModel> finishRequestAction, @NonNull Integer postId) {
         GetPostDetailRequestBuilder getPostDetailRequestBuilder = new GetPostDetailRequestBuilder(postId);
-        Type type = new TypeToken<BaseResponseCM<PostDetailCM>>() {
+        Type type = new TypeToken<BaseResponseModel<PostDetailModel>>() {
         }.getType();
         applyApiResponse(getPostDetailRequestBuilder, finishRequestAction, type);
     }
 
-    public void postUpload(@NonNull FinishRequestAction<DummyCM> finishRequestAction, Post post) {
+    public void postUpload(@NonNull FinishRequestAction<EmptyModel> finishRequestAction, Post post) {
         PostUploadRequestBuilder postUploadRequestBuilder = new PostUploadRequestBuilder(ActiveUser.getActiveUser().getToken(), post.getTitle(), post.getContent(), post.getCategoriesId());
         PostFile[] postFiles = post.getFiles();
         if (postFiles != null && postFiles.length > 0) {
@@ -145,12 +145,12 @@ public class ApiManager {
             }
             postUploadRequestBuilder.setFiles(filesDataPart);
         }
-        Type type = new TypeToken<BaseResponseCM<DummyCM>>() {
+        Type type = new TypeToken<BaseResponseModel<EmptyModel>>() {
         }.getType();
         applyApiResponse(postUploadRequestBuilder, finishRequestAction, type);
     }
 
-    public void postUpdate(@NonNull FinishRequestAction<DummyCM> finishRequestAction) {
+    public void postUpdate(@NonNull FinishRequestAction<EmptyModel> finishRequestAction) {
 
     }
 
@@ -159,7 +159,7 @@ public class ApiManager {
     }
 
     public interface FinishRequestAction<T> {
-        public void onResponse(BaseResponseCM<T> baseResponseCM);
+        public void onResponse(BaseResponseModel<T> baseResponseModel);
     }
 
 }

@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.finalproject.api.ApiManager;
-import com.example.finalproject.database.cloud.response.model.BaseResponseCM;
-import com.example.finalproject.database.cloud.response.model.PostDetailCM;
+import com.example.finalproject.database.cloud.response.model.BaseResponseModel;
+import com.example.finalproject.database.cloud.response.model.PostDetailModel;
 import com.example.finalproject.helper.progressdialog.ProgressDialogHelper;
 
 import org.aviran.cookiebar2.CookieBar;
@@ -55,18 +55,18 @@ public class PostDetailActivity extends AppCompatActivity implements SwipeRefres
         apiManager.getPostDetail(this::onFinishGetPostDetailData, postId);
     }
 
-    public void onFinishGetPostDetailData(BaseResponseCM<PostDetailCM> baseResponseCM) {
+    public void onFinishGetPostDetailData(BaseResponseModel<PostDetailModel> baseResponseModel) {
         ProgressDialogHelper.hide(this);
 
-        if (baseResponseCM.success) {
-            PostDetailCM data = baseResponseCM.data;
+        if (baseResponseModel.success) {
+            PostDetailModel data = baseResponseModel.data;
             TextView tvPageTitle = findViewById(R.id.action_tv_title);
             tvPageTitle.setText(data.title);
             richEditor.setHtml(data.content);
         } else {
             CookieBar.build(this)
                     .setTitle("Gagal memuat data")
-                    .setMessage(baseResponseCM.message)
+                    .setMessage(baseResponseModel.message)
                     .setBackgroundColor(R.color.alizarin)
                     .show();
         }

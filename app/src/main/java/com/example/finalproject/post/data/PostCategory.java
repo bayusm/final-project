@@ -1,6 +1,6 @@
 package com.example.finalproject.post.data;
 
-import com.example.finalproject.database.cloud.response.model.CategoryCM;
+import com.example.finalproject.database.cloud.response.model.CategoryModel;
 
 public class PostCategory {
 
@@ -20,7 +20,7 @@ public class PostCategory {
         this.name = name;
     }
 
-    public PostCategory(CategoryCM cloudModel) {
+    public PostCategory(CategoryModel cloudModel) {
         this.id = cloudModel.id;
         this.idParent = cloudModel.idParent;
         this.name = cloudModel.name;

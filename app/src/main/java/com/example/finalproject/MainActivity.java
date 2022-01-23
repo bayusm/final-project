@@ -7,6 +7,7 @@ import com.example.finalproject.helper.sharedpref.SharedPrefKeyName;
 import com.example.finalproject.helper.sharedpref.SharedPrefHelper;
 import com.example.finalproject.user.ActiveUser;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {

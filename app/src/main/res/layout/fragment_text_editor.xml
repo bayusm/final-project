@@ -60,14 +60,8 @@
         <jp.wasabeef.richeditor.RichEditor
             android:id="@+id/re_text"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="600dp"
             android:background="@color/cool_grey_8" />
-
-        <jp.wasabeef.richeditor.RichEditor
-            android:id="@+id/fake_re_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent" />
 
     </FrameLayout>
 

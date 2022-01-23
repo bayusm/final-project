@@ -1,6 +1,6 @@
 package com.example.finalproject.user;
 
-import com.example.finalproject.database.cloud.response.model.UserLoginCM;
+import com.example.finalproject.database.cloud.response.model.UserLoginModel;
 
 public class ActiveUser {
 
@@ -26,12 +26,12 @@ public class ActiveUser {
         this.token = token;
     }
 
-    public ActiveUser(UserLoginCM userLoginCM)
+    public ActiveUser(UserLoginModel userLoginModel)
     {
-        this.id = userLoginCM.userData.id;
-        this.username = userLoginCM.userData.username;
-        this.email = userLoginCM.userData.email;
-        this.token = userLoginCM.token;
+        this.id = userLoginModel.userData.id;
+        this.username = userLoginModel.userData.username;
+        this.email = userLoginModel.userData.email;
+        this.token = userLoginModel.token;
     }
 
     public Integer getId() {

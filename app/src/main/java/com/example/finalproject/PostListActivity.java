@@ -2,7 +2,6 @@ package com.example.finalproject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -14,8 +13,8 @@ import android.widget.EditText;
 import com.example.finalproject.adapter.ListPostAdapter;
 import com.example.finalproject.api.ApiManager;
 import com.example.finalproject.api.ParameterNames;
-import com.example.finalproject.database.cloud.response.model.BaseResponseCM;
-import com.example.finalproject.database.cloud.response.model.PostPageCM;
+import com.example.finalproject.database.cloud.response.model.BaseResponseModel;
+import com.example.finalproject.database.cloud.response.model.PostPageModel;
 import com.example.finalproject.helper.progressdialog.ProgressDialogHelper;
 import com.example.finalproject.post.data.Post;
 
@@ -54,7 +53,7 @@ public class PostListActivity extends AppCompatActivity implements SwipeRefreshL
     void initUI() {
         findViewById(R.id.action_btn_back).setOnClickListener(v -> startActivity(new Intent(PostListActivity.this, HomeActivity.class)));
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout_post);
+        swipeRefreshLayout = findViewById(R.id.refresh_layout_post);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         etSearchTitle = findViewById(R.id.et_search_title);
@@ -91,13 +90,13 @@ public class PostListActivity extends AppCompatActivity implements SwipeRefreshL
         apiManager.getPostPage(this::onFinishGetPostPage, cursor, null, currentSearchStr);
     }
 
-    public void onFinishGetPostPage(BaseResponseCM<PostPageCM> baseResponseCM) {
+    public void onFinishGetPostPage(BaseResponseModel<PostPageModel> baseResponseModel) {
         ProgressDialogHelper.hide(this);
 
-        if (baseResponseCM.success) {
-            PostPageCM model = baseResponseCM.data;
+        if (baseResponseModel.success) {
+            PostPageModel model = baseResponseModel.data;
 
-            for (PostPageCM.PostCM postCM : model.data) {
+            for (PostPageModel.PostCM postCM : model.data) {
                 listPost.add(0, new Post(postCM));
                 listPostAdapter.notifyItemInserted(0);
             }
@@ -110,7 +109,7 @@ public class PostListActivity extends AppCompatActivity implements SwipeRefreshL
         } else {
             CookieBar.build(this)
                     .setTitle("Gagal memuat data")
-                    .setMessage(baseResponseCM.message)
+                    .setMessage(baseResponseModel.message)
                     .setBackgroundColor(R.color.alizarin)
                     .show();
         }

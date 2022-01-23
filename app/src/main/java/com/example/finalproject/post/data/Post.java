@@ -3,14 +3,13 @@ package com.example.finalproject.post.data;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.finalproject.database.cloud.response.model.PostPageCM;
+import com.example.finalproject.database.cloud.response.model.PostPageModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -46,7 +45,7 @@ public class Post {
             Collections.addAll(this.listPostLikes, arrPostLikes);
     }
 
-    public Post(PostPageCM.PostCM cloudModel) {
+    public Post(PostPageModel.PostCM cloudModel) {
         this.id = cloudModel.id;
         this.title = cloudModel.title;
         this.content = cloudModel.content;

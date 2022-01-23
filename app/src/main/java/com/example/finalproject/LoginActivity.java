@@ -9,8 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.finalproject.api.ApiManager;
-import com.example.finalproject.database.cloud.response.model.BaseResponseCM;
-import com.example.finalproject.database.cloud.response.model.UserLoginCM;
+import com.example.finalproject.database.cloud.response.model.BaseResponseModel;
+import com.example.finalproject.database.cloud.response.model.UserLoginModel;
 import com.example.finalproject.helper.progressdialog.ProgressDialogHelper;
 import com.example.finalproject.helper.sharedpref.SharedPrefHelper;
 import com.example.finalproject.helper.sharedpref.SharedPrefKeyName;
@@ -73,11 +73,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void onFinishUserLogin(BaseResponseCM<UserLoginCM> baseResponseCM) {
+    public void onFinishUserLogin(BaseResponseModel<UserLoginModel> baseResponseModel) {
         ProgressDialogHelper.hide(this);
 
-        if (baseResponseCM.success) {
-            ActiveUser activeUser = new ActiveUser(baseResponseCM.data);
+        if (baseResponseModel.success) {
+            ActiveUser activeUser = new ActiveUser(baseResponseModel.data);
             SharedPrefHelper.saveObject(this, SharedPrefKeyName.OBJECT_CURRENT_USER_CLASS, activeUser);
             ActiveUser.setActiveUser(activeUser);
 
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             CookieBar.build(this)
                     .setTitle("Gagal Login!")
-                    .setMessage(baseResponseCM.message)
+                    .setMessage(baseResponseModel.message)
                     .setBackgroundColor(R.color.alizarin)
                     .setEnableAutoDismiss(false)
                     .show();

@@ -4,43 +4,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.finalproject.api.ApiManager;
-import com.example.finalproject.database.cloud.response.model.BaseResponseCM;
-import com.example.finalproject.database.cloud.response.model.DummyCM;
-import com.example.finalproject.database.cloud.response.model.SubCategoryListCM;
+import com.example.finalproject.database.cloud.response.model.BaseResponseModel;
+import com.example.finalproject.database.cloud.response.model.EmptyModel;
+import com.example.finalproject.database.cloud.response.model.SubCategoryListModel;
 import com.example.finalproject.editor.texteditor.TextEditor;
 import com.example.finalproject.helper.progressdialog.ProgressDialogHelper;
 import com.example.finalproject.helper.validatetor.ValidateTor;
 import com.example.finalproject.post.data.Post;
 import com.example.finalproject.post.data.PostCategory;
-import com.example.finalproject.post.data.PostFile;
 import com.example.finalproject.post.factory.PostFactory;
 import com.example.finalproject.post.factory.PostFactoryServices;
 
 import org.aviran.cookiebar2.CookieBar;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class PostEditorActivity extends AppCompatActivity {
 
@@ -80,13 +70,11 @@ public class PostEditorActivity extends AppCompatActivity {
     void initData() {
         int type = getIntent().getIntExtra(ActivityExtraParameters.POST_FACTORY_TYPE, 0);
         postFactory = PostFactoryServices.GetInstancePostFactory(type);
-        //create EmptyPostData
+        assert postFactory != null;
         post = postFactory.createEmptyPost();
 
-        //create Categories
         initTags();
 
-        //create TextEditor
         textEditor = postFactory.createTextEditor();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.layout_text_editor, textEditor);
@@ -99,14 +87,14 @@ public class PostEditorActivity extends AppCompatActivity {
         apiManager.getSubCategories(this::onFinishGetSubCategoriesData, post.getMainCategory().id);
     }
 
-    public void onFinishGetSubCategoriesData(BaseResponseCM<SubCategoryListCM> baseResponseCM) {
+    public void onFinishGetSubCategoriesData(BaseResponseModel<SubCategoryListModel> baseResponseModel) {
         ProgressDialogHelper.hide(this);
 
-        if (baseResponseCM.success) {
+        if (baseResponseModel.success) {
             LinearLayout layoutTags = findViewById(R.id.layout_post_tags);
-            int tagLength = baseResponseCM.data.subCategories.size();
+            int tagLength = baseResponseModel.data.subCategories.size();
             for (int i = 0; i < tagLength; i++) {
-                PostCategory postCategory = new PostCategory(baseResponseCM.data.subCategories.get(i));
+                PostCategory postCategory = new PostCategory(baseResponseModel.data.subCategories.get(i));
                 Button tagButton = onCreateTagButton();
                 tagButton.setText(postCategory.name);
                 int finalI = i;
@@ -125,7 +113,7 @@ public class PostEditorActivity extends AppCompatActivity {
         } else {
             CookieBar.build(this)
                     .setTitle("Gagal memuat data tags!")
-                    .setMessage(baseResponseCM.message)
+                    .setMessage(baseResponseModel.message)
                     .setBackgroundColor(R.color.alizarin)
                     .show();
         }
@@ -156,43 +144,13 @@ public class PostEditorActivity extends AppCompatActivity {
         post.setContent(contentStr);
         PostCategory[] tags = postTags.values().toArray(new PostCategory[0]);
         post.addCategories(tags);
-        //add files from inserted file in text editor
-        Map<String, String> postFilesPath = textEditor.getFixedFilesPath();
-        int filesLength = postFilesPath.size();
-        if (filesLength > 0) {
-            String[] namePostFilesPath = postFilesPath.keySet().toArray(new String[0]);
-            PostFile[] postFiles = new PostFile[filesLength];
-            for (int i = 0; i < filesLength; i++) {
-                //create byte
-                File file = new File(Objects.requireNonNull(postFilesPath.get(namePostFilesPath[i])));
-                int size = (int) file.length();
-                byte[] fileBytes = new byte[size];
-                try {
-                    BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
-                    buf.read(fileBytes, 0, fileBytes.length);
-                    buf.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    return;
-                }
-                String fileType = null;
-                String extension = MimeTypeMap.getFileExtensionFromUrl(postFilesPath.get(namePostFilesPath[i]));
-                ;
-                if (extension != null) {
-                    fileType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-                }
-                postFiles[i] = new PostFile(namePostFilesPath[i], fileType, fileBytes);
-            }
-            post.addFiles(postFiles);
-        }
         apiManager.postUpload(this::onFinishPublish, post);
     }
 
-    public void onFinishPublish(BaseResponseCM<DummyCM> baseResponseCM) {
+    public void onFinishPublish(BaseResponseModel<EmptyModel> baseResponseModel) {
         ProgressDialogHelper.hide(this);
 
-        if (baseResponseCM.success) {
+        if (baseResponseModel.success) {
             CookieBar.build(this)
                     .setTitle("Sukses publish!")
                     .setMessage("Berhasil membuat post")
@@ -202,7 +160,7 @@ public class PostEditorActivity extends AppCompatActivity {
         } else {
             CookieBar.build(this)
                     .setTitle("Gagal publish!")
-                    .setMessage(baseResponseCM.message)
+                    .setMessage(baseResponseModel.message)
                     .setBackgroundColor(R.color.alizarin)
                     .setEnableAutoDismiss(false)
                     .show();

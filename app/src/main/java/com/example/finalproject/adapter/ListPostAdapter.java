@@ -41,7 +41,12 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = listPost.get(position);
 
-        holder.postId = post.getId();
+        holder.viewParent.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, PostDetailActivity.class);
+            intent.putExtra(ActivityExtraParameters.POST_DETAIL_ID, post.getId());
+            context.startActivity(intent);
+        });
 
         holder.tvUsername.setText(post.getUsernamePublisher());
         holder.tvMainCategory.setText(post.getMainCategory().name);
@@ -70,21 +75,23 @@ public class ListPostAdapter extends RecyclerView.Adapter<ListPostAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        int postId;
+//        int postId;
 
+        View viewParent;
         TextView tvUsername, tvMainCategory, tvTitle, tvCreatedAt, tvLikes, tvComments;
         TextView[] tvTags = new TextView[7];
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(v -> {
-                Context context = itemView.getContext();
-                Intent intent = new Intent(context, PostDetailActivity.class);
-                intent.putExtra(ActivityExtraParameters.POST_DETAIL_ID, postId);
-                context.startActivity(intent);
-            });
+//            itemView.setOnClickListener(v -> {
+//                Context context = itemView.getContext();
+//                Intent intent = new Intent(context, PostDetailActivity.class);
+//                intent.putExtra(ActivityExtraParameters.POST_DETAIL_ID, postId);
+//                context.startActivity(intent);
+//            });
 
+            viewParent = itemView;
             tvUsername = itemView.findViewById(R.id.tv_username_publisher);
             tvMainCategory = itemView.findViewById(R.id.tv_main_category_tag);
             tvTitle = itemView.findViewById(R.id.tv_post_title);

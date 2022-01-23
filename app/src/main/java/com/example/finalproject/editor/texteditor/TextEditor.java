@@ -1,5 +1,6 @@
 package com.example.finalproject.editor.texteditor;
 
+import android.Manifest;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,10 +33,12 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 import jp.wasabeef.richeditor.RichEditor;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class TextEditor extends Fragment {
 
-    private final static Pattern HTML_IMAGE_PATTERN = Pattern.compile("(?<=<img\\ssrc=\")(.*?)(?=\"\\salt=\"\">)");
+    //    private final static Pattern HTML_IMAGE_PATTERN = Pattern.compile("(?<=<img\\ssrc=\")(.*?)(?=\"\\salt=\"\">)"); //link only
+    private final static Pattern HTML_IMAGE_PATTERN = Pattern.compile("<img\\ssrc=\".*?\"\\salt=\"\">");
 
     private FilePicker filePicker;
 
@@ -70,7 +73,11 @@ public class TextEditor extends Fragment {
         richEditor = view.findViewById(R.id.re_text);
 
         initEditorData(view);
-        initFakeRichEditor(view);
+
+        if (!EasyPermissions.hasPermissions(requireContext(), READ_STORAGE_PERMISSION)) {
+            EasyPermissions.requestPermissions(this, "Aplikasi memerlukan izin membaca penyimpanan...",
+                    READ_STORAGE_PERMISSION_REQUEST, READ_STORAGE_PERMISSION);
+        }
     }
 
     void initEditorData(View view) {
@@ -137,41 +144,28 @@ public class TextEditor extends Fragment {
     }
 
     public String getFixedHtmlText() {
-        Map<String, String> fixedFilesPath = getFixedFilesPath();
-        String fixedHtml = richEditor.getHtml();
-        if (fixedFilesPath.size() > 0) {
-            //renaming all source to file key name
-            for (Map.Entry<String, String> fileData : fixedFilesPath.entrySet()) {
-                //future use pattern to avoid detect non html tag
-                fixedHtml.replaceAll(fileData.getValue(), fileData.getKey());
-            }
-        }
-        return fixedHtml;
+        //remove all image (sementara)
+        return richEditor.getHtml().replaceAll(HTML_IMAGE_PATTERN.toString(), "");
     }
 
-    public Map<String, String> getFixedFilesPath() {
-        Map<String, String> fixedFilesPath = new HashMap<>();
-        //validate duplicate only in same key
-        if (insertedFiles.size() > 0) {
-            for (Map.Entry<String, List<String>> entry : insertedFiles.entrySet()) {
-                String fileName = entry.getKey();
-                int currentIndex = 0;
-                for (String filePath : entry.getValue()) {
-                    if (!fixedFilesPath.containsValue(filePath)) {
-                        fixedFilesPath.put(fileName + "_" + currentIndex, filePath);
-                        currentIndex++;
-                    }
-                }
-            }
-        }
-        return fixedFilesPath;
-    }
+    private static final String READ_STORAGE_PERMISSION = Manifest.permission.READ_EXTERNAL_STORAGE;
+    private static final int READ_STORAGE_PERMISSION_REQUEST = 123;
 
     int tempFileType;
     String tempKey;
     boolean tempIsSingleFile;
 
     public void openFile(@FileType int fileType, String key, boolean isSingleFile) {
+        if (!EasyPermissions.hasPermissions(requireContext(), READ_STORAGE_PERMISSION)) {
+            EasyPermissions.requestPermissions(this, "Aplikasi memerlukan izin membaca penyimpanan...",
+                    READ_STORAGE_PERMISSION_REQUEST, READ_STORAGE_PERMISSION);
+            CookieBar.build(requireActivity())
+                    .setMessage("Harap ulangi mengambil file!")
+                    .setBackgroundColor(R.color.carrot)
+                    .show();
+            return;
+        }
+
         tempFileType = fileType;
         tempKey = key;
         tempIsSingleFile = isSingleFile;
@@ -194,7 +188,7 @@ public class TextEditor extends Fragment {
         if (filePath == null) {
             CookieBar.build(requireActivity())
                     .setTitle("Gagal mengambil file!")
-                    .setMessage("Harap izinkan akses penyimpanan file")
+                    .setMessage("Error!")
                     .setBackgroundColor(R.color.alizarin)
                     .show();
             return;
@@ -211,25 +205,6 @@ public class TextEditor extends Fragment {
             Objects.requireNonNull(insertedFiles.get(tempKey)).remove(0);//always keep contain 1 file
         }
         Objects.requireNonNull(insertedFiles.get(tempKey)).add(filePath);
-    }
-
-    private RichEditor fakeRichEditor;
-
-    void initFakeRichEditor(View view) {
-        fakeRichEditor = view.findViewById(R.id.fake_re_text);
-        fakeRichEditor.setInputEnabled(false);
-
-        richEditor.setOnTextChangeListener(this::onTrueRichEditorTextChange);
-    }
-
-    void onTrueRichEditorTextChange(String text) {
-        fakeRichEditor.setHtml(text);
-        fakeRichEditor.setVisibility(View.VISIBLE);
-        int fakeREHeight = fakeRichEditor.getHeight();
-        fakeRichEditor.setVisibility(View.GONE);
-        if (fakeREHeight > richEditor.getHeight()) {
-            richEditor.setEditorHeight(fakeREHeight);
-        }
     }
 
     @Retention(RetentionPolicy.SOURCE)

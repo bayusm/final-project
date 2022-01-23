@@ -9,17 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.finalproject.api.ApiManager;
-import com.example.finalproject.database.cloud.response.model.BaseResponseCM;
-import com.example.finalproject.database.cloud.response.model.DummyCM;
-import com.example.finalproject.database.cloud.response.model.UserLoginCM;
+import com.example.finalproject.database.cloud.response.model.BaseResponseModel;
+import com.example.finalproject.database.cloud.response.model.EmptyModel;
 import com.example.finalproject.helper.progressdialog.ProgressDialogHelper;
-import com.example.finalproject.helper.sharedpref.SharedPrefHelper;
-import com.example.finalproject.helper.sharedpref.SharedPrefKeyName;
 import com.example.finalproject.helper.validatetor.ValidateTor;
-import com.example.finalproject.user.ActiveUser;
 
 import org.aviran.cookiebar2.CookieBar;
-import org.aviran.cookiebar2.OnActionClickListener;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -77,10 +72,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public void onFinishUserRegister(BaseResponseCM<DummyCM> baseResponseCM) {
+    public void onFinishUserRegister(BaseResponseModel<EmptyModel> baseResponseModel) {
         ProgressDialogHelper.hide(this);
 
-        if (baseResponseCM.success) {
+        if (baseResponseModel.success) {
             CookieBar.build(this)
                     .setTitle("Sukses register!")
                     .setMessage("Sekarang kamu bisa login")
@@ -91,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             CookieBar.build(this)
                     .setTitle("Gagal register!")
-                    .setMessage(baseResponseCM.message)
+                    .setMessage(baseResponseModel.message)
                     .setBackgroundColor(R.color.alizarin)
                     .setEnableAutoDismiss(false)
                     .show();
